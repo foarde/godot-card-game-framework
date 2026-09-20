@@ -19,9 +19,16 @@
 # It is also unnecessary: the whole history is only ~7 MB because these assets
 # almost never change. Plain git storage is the right call at this size.
 #
-# If Git LFS is ever genuinely needed, the fork must first be detached into a
-# standalone repository (GitHub Support), and upstream merges will then
-# conflict on every asset. Weigh that before starting.
+# If Git LFS is ever genuinely needed, this repository must first leave the
+# fork network: repository Settings, Danger Zone, "Leave fork network". That
+# is self-service and permanent, and it drops issues, pull requests, wikis,
+# stars and watchers, though every commit is preserved.
+#
+# Detaching does not cut this repository off from upstream. Add db0 as an
+# ordinary git remote and fetch or merge from it exactly as before; only the
+# "Sync fork" button goes away. What does cause conflicts is adopting LFS
+# afterwards, because upstream keeps these assets as ordinary blobs while
+# this repository would carry pointers for the same paths.
 #
 # ---------------------------------------------------------------------------
 # Binary assets

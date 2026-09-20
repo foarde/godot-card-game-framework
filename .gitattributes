@@ -1,0 +1,84 @@
+# Path attributes for the Godot Card Game Framework.
+#
+# ---------------------------------------------------------------------------
+# Why this repository does NOT use Git LFS
+# ---------------------------------------------------------------------------
+# Images and fonts are ~9.9 MB of the ~13 MB working tree, which is the usual
+# cue to reach for Git LFS. Do not. This repository is a public fork of
+# db0/godot-card-game-framework, and GitHub refuses LFS uploads from a public
+# fork:
+#
+#     batch response: can not upload new objects to public fork
+#
+# LFS objects are always billed to and stored against the root repository, so
+# a fork cannot push its own. Adding "filter=lfs" rules here would silently
+# rewrite assets into pointer files and produce commits that can never be
+# pushed, and every clone without git-lfs installed would get unusable text
+# stubs where its art and fonts should be.
+#
+# It is also unnecessary: the whole history is only ~7 MB because these assets
+# almost never change. Plain git storage is the right call at this size.
+#
+# If Git LFS is ever genuinely needed, this repository must first leave the
+# fork network: repository Settings, Danger Zone, "Leave fork network". That
+# is self-service and permanent, and it drops issues, pull requests, wikis,
+# stars and watchers, though every commit is preserved.
+#
+# Detaching does not cut this repository off from upstream. Add db0 as an
+# ordinary git remote and fetch or merge from it exactly as before; only the
+# "Sync fork" button goes away. What does cause conflicts is adopting LFS
+# afterwards, because upstream keeps these assets as ordinary blobs while
+# this repository would carry pointers for the same paths.
+#
+# ---------------------------------------------------------------------------
+# Binary assets
+# ---------------------------------------------------------------------------
+# "binary" is shorthand for "-text -diff": never apply line-ending conversion
+# and never attempt a textual diff. Without this, a contributor cloning on
+# Windows with core.autocrlf=true relies purely on git's NUL-byte heuristic to
+# avoid corrupting these files on checkout.
+
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.bmp   binary
+*.webp  binary
+*.tga   binary
+*.psd   binary
+
+*.ttf   binary
+*.otf   binary
+*.woff  binary
+*.woff2 binary
+
+*.ogg   binary
+*.wav   binary
+*.mp3   binary
+*.ogv   binary
+*.webm  binary
+
+*.zip   binary
+
+# Godot binary resources.
+*.res   binary
+*.scn   binary
+
+# ---------------------------------------------------------------------------
+# Godot text sources
+# ---------------------------------------------------------------------------
+# Godot always writes these with LF. Pinning eol=lf keeps Windows checkouts
+# from reintroducing CRLF and producing whole-file diffs that hide the real
+# change. Every one of these files is already LF, so this normalizes nothing
+# today, it only stops the next Windows contributor from flipping them.
+
+*.gd     text eol=lf
+*.tscn   text eol=lf
+*.tres   text eol=lf
+*.import text eol=lf
+*.cfg    text eol=lf
+*.godot  text eol=lf
+
+# Intentionally left unspecified: *.svg, *.json, *.md, *.txt, *.yml, *.html,
+# *.fnt. Those files are checked in with CRLF today; declaring them here
+# would renormalize them and bury real changes in unrelated churn.
